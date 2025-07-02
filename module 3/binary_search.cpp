@@ -3,33 +3,47 @@
 using namespace std;
 int main()
 {
-    int n,q;
+    int n, q;
     cin >> n >> q;
-    vector<long long int> v(n + 1);
-    for (int i = 1; i <= n; i++)
+    int a[n];
+    for (int i = 0; i < n; i++)
     {
-        cin >> v[i];
+        cin >> a[i];
     }
+    sort(a, a + n);
 
-    vector<long long int> pre(n + 1);
-    pre[1] = v[1];
-    for (int i = 2; i <= n; i++)
+    for (int i = 0; i < q; i++)
     {
-        pre[i] = pre[i - 1] + v[i];
-    }
-    while (q--)
-    {
-        int l,r;
-        cin >> l >> r;
-        long long int sum;
-        if (l == 1)
+        int val;
+        cin >> val;
+        int flag = 0;
+        int l = 0;
+        int r = n - 1;
+
+        while (l <= r)
         {
-            sum = pre[r];
+            int mid = (l + r) / 2;
+            if (a[mid] == val)
+            {
+                flag = 1;
+                break;
+            }
+            else if (a[mid] > val)
+            {
+                r = mid - 1;
+            }
+            else
+            {
+                l = mid + 1;
+            }
+        }
+        if (flag == 1)
+        {
+            cout << "found" << endl;
         }
         else
         {
-            sum = pre[r] - pre[l - 1];
+            cout << "Not found" << endl;
         }
-        cout << sum << endl;
     }
 }
