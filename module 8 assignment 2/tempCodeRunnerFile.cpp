@@ -1,1 +1,2 @@
-  // insert_at_tail(head, tail, val);
+if (head == NULL)
+        //     tail = NULL;

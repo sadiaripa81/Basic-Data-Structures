@@ -24,6 +24,10 @@ void insert_at_head(Node *&head, Node *&tail, int val)
     Node *newnode = new Node(val);
     newnode->next = head;
     head = newnode;
+    if (tail == NULL)
+    {
+        tail = newnode;
+    }
 }
 void insert_at_tail(Node *&head, Node *&tail, int val)
 {
@@ -32,29 +36,32 @@ void insert_at_tail(Node *&head, Node *&tail, int val)
     {
         head = newnode;
         tail = newnode;
-        return;
     }
-    tail->next = newnode;
-    tail = newnode;
+    else
+    {
+        tail->next = newnode;
+        tail = newnode;
+    }
 }
 void delete_at_index(Node *&head, Node *&tail, int index)
 {
     if (head == NULL)
         return;
+
     if (index == 0)
     {
         Node *deleteNode = head;
         head = head->next;
         delete deleteNode;
-
-        if (head == NULL)
-            tail = NULL;
+        // if (head == NULL)
+        //     tail = NULL;
         return;
     }
+
     Node *tmp = head;
     for (int i = 0; i < index - 1; i++)
     {
-        if (tmp->next == NULL)
+        if (tmp == NULL || tmp->next == NULL)
             return;
         tmp = tmp->next;
     }
@@ -78,6 +85,7 @@ void print_list(Node *head)
         cout << tmp->val << " ";
         tmp = tmp->next;
     }
+    cout << endl;
 }
 
 int main()
@@ -96,21 +104,16 @@ int main()
         if (idx == 0)
         {
             insert_at_head(head, tail, val);
-            print_list(head);
-            cout << endl;
         }
         else if (idx == 1)
         {
             insert_at_tail(head, tail, val);
-            print_list(head);
-            cout << endl;
         }
         else if (idx == 2)
         {
             delete_at_index(head, tail, val);
-            print_list(head);
-            cout << endl;
         }
+        print_list(head);
     }
     return 0;
 }
